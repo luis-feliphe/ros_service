@@ -1,0 +1,80 @@
+<!DOCTYPE hxtml>
+<html>
+ <head>
+<script>
+	// Only run what comes next *after* the page has loaded
+	addEventListener("DOMContentLoaded", function() {
+	  // Grab all of the elements with a class of command
+	  // (which all of the buttons we just created have)
+	  var commandButtons = document.querySelectorAll(".command");
+	  for (var i=0, l=commandButtons.length; i<l; i++) {
+	    var button = commandButtons[i];
+	    // For each button, listen for the "click" event
+	    button.addEventListener("click", function(e) {
+	      // When a click happens, stop the button
+	      // from submitting our form (if we have one)
+	      e.preventDefault();
+
+	      var clickedButton = e.target;
+	      var command = clickedButton.value;
+
+	      // Now we need to send the data to our server
+	      // without reloading the page - this is the domain of
+	      // AJAX (Asynchronous JavaScript And XML)
+	      // We will create a new request object
+	      // and set up a handler for the response
+	      var request = new XMLHttpRequest();
+	      request.onload = function() {
+		  // We could do more interesting things with the response
+		  // or, we could ignore it entirely
+		  alert(request.responseText);
+	      };
+	      // We point the request at the appropriate command
+	      request.open("GET", "/" + command, true);
+	      // and then we send it off
+	      request.send();
+	    });
+	  }
+	}, true);
+	</script>
+
+
+
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+<title> Controlo </title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div id="main">
+<h1>Controle do robô</h1>
+
+<!--img id="bg" src="{{ url_for('video_feed') }}"-->
+
+
+
+<button class="command command-Left" value="Left">Left </button>
+	
+<!--
+<button onclick="myFunction()">Copy Text</button>
+<button style="font-size:24px"><i class="fa fa-angle-double-up"></i></button>
+<button style="font-size:24px"><i class="fa fa-angle-double-left"></i></button>
+<button style="font-size:24px"><i class="fa fa-angle-double-right"></i></button>
+<button style="font-size:24px"><i class="fa fa-angle-double-down"></i></button>
+<input type="submit" name="GirarH" value="rotateh">
+<input type="submit" name="GirarA" value="rotatea">
+ <button type="button">Girar Horário</button> 
+ <button type="button">Girar Anti-horário</button> 
+-->
+<!--form action="/foo" method="post" target="hidden-from">
+	<button type="submit" value="Left" />
+</form-->
+<!--iframe style="display:none" name="hidden-form"></iframe-->  
+</div>
+
+</body>
+</html>
+
