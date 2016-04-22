@@ -16,12 +16,12 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
 
 	def handle(self):
 		global publicadorRos
-		mapa = {"Right": (0, 1), "Left":(0, -1), "Up":(1,0) ,"Down":(-1, 0)}
+		mapa = {"Right": (0, 1.4), "Left":(0, -1.4), "Up":(0.15,0) ,"Down":(-0.15, 0)}
 		self.data = self.request.recv(1024).strip()
 #		print "{} wrote:".format(self.client_address[0])
 #		print str(mapa[self.data])
 		velocidade = Twist()
-		velocidade.linear.x, velocidade.angular.y = mapa [self.data]
+		velocidade.linear.x, velocidade.angular.z = mapa [self.data]
 		publicadorRos.publish (velocidade)
 		
 		self.request.sendall("Mensagem recebida")
