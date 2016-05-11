@@ -30,12 +30,19 @@
 
 
 <body>
-<title> Controlo </title>
-
+<title> Control mode </title>
+<h1> Control mode </h1>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div id="main">
-<h1>Use os botões a seguir para controlar o robô</h1>
+	Escolha o robô e envie os comandos
+	 <select>
+	  <option class="command change-p1" value="p1">Pioneer   - p1</option>
+	  <option class="command change-t1" value="t1">Turtlebot - t1 </option>
+	  <option class="command change-t2" value="t2">Turtlebot - t2</option>
+	</select> 
+
+	<button class="command command-Stop" value="Stop">Stop </button>
 	<button class="command command-Left" value="Left">Left </button>
 	<button class="command command-Right" value="Right">Right </button>
 	<button class="command command-Up" value="Up">Up </button>

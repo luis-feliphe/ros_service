@@ -43,6 +43,7 @@ def command(cmd=None):
 		camera_command = "X"
 		response = "Resetting ..."
 	else:
+		print str (cmd)
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		try:
 			sock.connect((HOST, PORT))
@@ -56,7 +57,10 @@ def command(cmd=None):
 
 
 if __name__ == '__main__':
-	app.run(host="25.70.63.170", port=8000, debug=True)
-
+	app.run(host="localhost", port=8000, debug=True)
+#	app.run(host="10.13.100.1", port=8000, debug=True)
+#	app.run(host="25.70.63.170", port=8000, debug=True)
+#	app.run(host="192.168.1.111", port=8000, debug=True)
+#	app.run(host="150.165.205.53", port=8000, debug=True)
 
 
