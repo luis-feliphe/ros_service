@@ -39,33 +39,41 @@ gen = MapGenerate()
 class MyTCPHandler(SocketServer.BaseRequestHandler):
 	def handle(self):
 		try:
+			print "\n---- Requsisição --- "
 			global ultimo
 			mapa = {"Stop":(0,0), "Right": (0, 1.4), "Left":(0, -1.4), "Up":(0.15,0) ,"Down":(-0.15, 0)}
 			self.data = self.request.recv(1024).strip()
-			print str (self.data)
-	#		print "{} wrote:".format(self.client_address[0])
-	#		print str(mapa[self.data])
+			if self.data.count ("\n")> 0:
+				temp = self.data.split("\n")
+				temp = temp[0]
+				temp = temp.split(" ")
+				temp = temp[1]
+				self.data = temp.replace("/","")
+			robot, cmd = self.data.split ("&")
 			velocidade = Twist()
-			if self.data == "t1":
-				global publicadorRos
-				ultimo = publicadorRos
-				print "setando para T1"
-			elif(self.data =="p1"):
-				global publicadorRosP
-				ultimo = publicadorRosP
-				print "setando para P1"
-			elif(mapa.has_key(self.data)):
-				print "publicando velocidade"
-				velocidade.linear.x, velocidade.angular.z = mapa [self.data]
-				ultimo.publish (velocidade)
-			
-				self.request.sendall("Mensagem recebida")
+
+			if(mapa.has_key(cmd)):
+				velocidade.linear.x, velocidade.angular.z = mapa [cmd]
+				print "cmd = " + str (cmd)
+				if robot == "pioneer":
+					print "pioneer"
+					global publicadorRosP
+					publicadorRos.publish (velocidade)
+				elif robot == "turtlebot":
+					print "turtlebot"
+					global publicadorRos
+					publicadorRos.publish (velocidade)
+				else:
+					print "404:robot"
+					self.request.sendall("404: Robô não disponível")
 			else:
-				print " Não foi possível interpretar o comando recebido."
+				print "404:cmd"
+				self.request.sendall("404: Comando não disponível")
 		except Exception  as e:
-			print "Ocorreu um erro inesperado"
+			raise e 
+			self.request.sendall(str (e))
 		finally:
-			print "Tentando recuperar"
+			self.request.sendall("Mensagem recebida")
 
 if __name__ == "__main__":
 	HOST, PORT = "localhost", 9999

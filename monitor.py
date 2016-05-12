@@ -52,7 +52,7 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    app.run(host='localhost', port=7777, debug=True)
 #    app.run(host='10.13.100.1', port=8080, debug=True)
 #    app.run(host='192.168.1.111', port=8080, debug=True)
 #    app.run(host='25.70.63.170', port=8080, debug=True)
